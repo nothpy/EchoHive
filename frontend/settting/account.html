@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Sidebar with Hamburger Menu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .bg-dark-custom {
+            background-color: #343a40; /* Custom color for sidebar */
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px; /* Hide sidebar initially */
+            width: 250px;
+            height: 100%;
+            background: #343a40;
+            transition: left 0.3s ease;
+            z-index: 1000; /* Ensure it is above other content */
+        }
+        .sidebar.show {
+            left: 0; /* Show sidebar when active */
+        }
+        .content {
+            margin-left: 0; /* No margin for mobile */
+            transition: margin-left 0.3s ease;
+        }
+        .content.expand {
+            margin-left: 250px; /* Add margin when sidebar is expanded */
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <!-- Hamburger Button -->
+    <button class="btn btn-primary d-lg-none" id="sidebarToggle">
+        <i class="fas fa-bars"></i> Menu
+    </button>
+
+    <!-- Left Panel (Navigation Tabs) -->
+    <div class="sidebar" id="sidebar">
+        <div class="bg-dark-custom p-4 rounded-lg">
+            <button class="btn-close text-white" id="closeSidebar" aria-label="Close" style="position: absolute; top: 10px; right: 10px;"></button>
+            <ul class="nav flex-column nav-pills mb-4" id="settings-tab" role="tablist">
+                <li class="nav-item mb-2" role="presentation">
+                    <button class="nav-link active" id="account-tab" data-bs-toggle="pill" data-bs-target="#account" type="button" role="tab">
+                        <i class="fas fa-user text-secondary me-2"></i> Account
+                    </button>
+                </li>
+                <li class="nav-item mb-2" role="presentation">
+                    <button class="nav-link" id="notification-tab" data-bs-toggle="pill" data-bs-target="#notification" type="button" role="tab">
+                        <i class="fas fa-bell text-warning me-2"></i> Notification
+                    </button>
+                </li>
+                <li class="nav-item mb-2" role="presentation">
+                    <button class="nav-link" id="privacy-tab" data-bs-toggle="pill" data-bs-target="#privacy" type="button" role="tab">
+                        <i class="fas fa-shield-alt text-warning me-2"></i> Privacy and Safety
+                    </button>
+                </li>
+                <li class="nav-item mb-2" role="presentation">
+                    <button class="nav-link" id="communications-tab" data-bs-toggle="pill" data-bs-target="#communications" type="button" role="tab">
+                        <i class="fas fa-comments text-secondary me-2"></i> Communications
+                    </button>
+                </li>
+                <li class="nav-item mb-2" role="presentation">
+                    <button class="nav-link" id="messaging-tab" data-bs-toggle="pill" data-bs-target="#messaging" type="button" role="tab">
+                        <i class="fas fa-envelope text-secondary me-2"></i> Messaging
+                    </button>
+                </li>
+                <li class="nav-item mb-2" role="presentation">
+                    <button class="nav-link" id="close-account-tab" data-bs-toggle="pill" data-bs-target="#close-account" type="button" role="tab">
+                        <i class="fas fa-trash-alt text-warning me-2"></i> Close Account
+                    </button>
+                </li>
+            </ul>
+            <div class="text-center mt-3">
+                <a href="#" class="text-decoration-none text-primary">View Profile</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content" id="content">
+        <div class="container">
+            <h1 class="mt-4">Main Content Area</h1>
+            <p>This is where the main content will go.</p>
+            <!-- Add your content here -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const closeSidebar = document.getElementById('closeSidebar');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+            content.classList.toggle('expand');
+        });
+
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.remove('show');
+            content.classList.remove('expand');
+        });
+    </script>
+</body>
+</html>

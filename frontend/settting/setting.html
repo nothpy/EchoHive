@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hh</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #212529;
+            color: #d1d5db;
+        }
+
+        .bg-dark-custom {
+            background-color: #343a40;
+        }
+
+        .nav-link {
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: #007bff;
+        }
+
+        .bg-blue-500 {
+            background-color: #0d6efd;
+        }
+
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: none;
+            padding: 15px 20px;
+        }
+
+        .list-group-item+.list-group-item {
+            border-top: 1px solid #e1e8ed;
+        }
+
+        .btn-change {
+            background-color: #f5f8fa;
+            border: 1px solid #e1e8ed;
+            color: #1da1f2;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .btn-change:hover {
+            background-color: #e1e8ed;
+        }
+
+        .btn-save {
+            background-color: #1da1f2;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+        }
+
+        .btn-save:hover {
+            background-color: #0d95e8;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            /* Hide sidebar initially */
+            width: 250px;
+            height: 100%;
+            background: #343a40;
+            transition: left 0.3s ease;
+            z-index: 1000;
+            /* Ensure it is above other content */
+        }
+
+        .sidebar.show {
+            left: 0;
+            /* Show sidebar when active */
+        }
+
+        .content {
+            margin-left: 0;
+            /* No margin for mobile */
+            transition: margin-left 0.3s ease;
+        }
+
+        .content.expand {
+            margin-left: 250px;
+            /* Add margin when sidebar is expanded */
+        }
+        @media (max-width: 991px) { /* Mobile size */
+            #deskLeft{
+                display: none; /* Hide sidebar on mobile by default */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container my-5">
+         <!-- Hamburger Button -->
+         <button class="btn btn-primary d-lg-none mb-2" id="sidebarToggle" style="width: max-content;">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+        <div class="row justify-content-center">
+            <!-- Left Panel (Navigation Tabs) -->
+            <div class=" col-lg-3 mb-4" id="deskLeft">
+                <div class="bg-dark-custom p-4 rounded-lg">
+                    <ul class="nav flex-column nav-pills mb-4" id="settings-tab" role="tablist">
+                        <li class="nav-item mb-2" role="presentation">
+                            <button class="nav-link active" id="account-tab" data-bs-toggle="pill"
+                                data-bs-target="#account" type="button" role="tab">
+                                <i class="fas fa-user text-secondary me-2"></i> Account
+                            </button>
+                        </li>
+                        <li class="nav-item mb-2" role="presentation">
+                            <button class="nav-link" id="notification-tab" data-bs-toggle="pill"
+                                data-bs-target="#notification" type="button" role="tab">
+                                <i class="fas fa-bell text-warning me-2"></i> Notification
+                            </button>
+                        </li>
+                        <li class="nav-item mb-2" role="presentation">
+                            <button class="nav-link" id="privacy-tab" data-bs-toggle="pill" data-bs-target="#privacy"
+                                type="button" role="tab">
+                                <i class="fas fa-shield-alt text-warning me-2"></i> Privacy and Safety
+                            </button>
+                        </li>
+                        <li class="nav-item mb-2" role="presentation">
+                            <button class="nav-link" id="communications-tab" data-bs-toggle="pill"
+                                data-bs-target="#communications" type="button" role="tab">
+                                <i class="fas fa-comments text-secondary me-2"></i> Communications
+                            </button>
+                        </li>
+                        <li class="nav-item mb-2" role="presentation">
+                            <button class="nav-link" id="messaging-tab" data-bs-toggle="pill"
+                                data-bs-target="#messaging" type="button" role="tab">
+                                <i class="fas fa-envelope text-secondary me-2"></i> Messaging
+                            </button>
+                        </li>
+                        <li class="nav-item mb-2" role="presentation">
+                            <button class="nav-link" id="close-account-tab" data-bs-toggle="pill"
+                                data-bs-target="#close-account" type="button" role="tab">
+                                <i class="fas fa-trash-alt text-warning me-2"></i> Close Account
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="text-center mt-3">
+                        <a href="#" class="text-decoration-none text-primary">View Profile</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Left Panel (Navigation Tabs) when screen size on mobile size-->
+            <div class="sidebar" id="sidebar">
+                <div class="bg-dark-custom p-4 rounded-lg">
+                    <button class="btn-close text-white " id="closeSidebar" aria-label="Close"
+                        style="position: absolute; top: 10px; right: 10px; background-color: #ffffff;"></button>
+                    <ul class="nav flex-column nav-pills mb-4" id="settings-tab" role="tablist">
+                        <li class="nav-item mb-2" role="presentation">
+                            <button class="nav-link active" id="account-tab" data-bs-toggle="pill"
+                                data-bs-target="#account" type="button" role="tab">
+                                <i class="fas fa-user text-secondary me-2"></i> Account
+                            </button>
+                        </li>
+                        <li class="nav-item mb-2" role="presentation">
+                            <button class="nav-link" id="notification-tab" data-bs-toggle="pill"
+                                data-bs-target="#notification" type="button" role="tab">
+                                <i class="fas fa-bell text-warning me-2"></i> Notification
+                            </button>
+                        </li>
+                        <li class="nav-item mb-2" role="presentation">
+                            <button class="nav-link" id="privacy-tab" data-bs-toggle="pill" data-bs-target="#privacy"
+                                type="button" role="tab">
+                                <i class="fas fa-shield-alt text-warning me-2"></i> Privacy and Safety
+                            </button>
+                        </li>
+                        <li class="nav-item mb-2" role="presentation">
+                            <button class="nav-link" id="communications-tab" data-bs-toggle="pill"
+                                data-bs-target="#communications" type="button" role="tab">
+                                <i class="fas fa-comments text-secondary me-2"></i> Communications
+                            </button>
+                        </li>
+                        <li class="nav-item mb-2" role="presentation">
+                            <button class="nav-link" id="messaging-tab" data-bs-toggle="pill"
+                                data-bs-target="#messaging" type="button" role="tab">
+                                <i class="fas fa-envelope text-secondary me-2"></i> Messaging
+                            </button>
+                        </li>
+                        <li class="nav-item mb-2" role="presentation">
+                            <button class="nav-link" id="close-account-tab" data-bs-toggle="pill"
+                                data-bs-target="#close-account" type="button" role="tab">
+                                <i class="fas fa-trash-alt text-warning me-2"></i> Close Account
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="text-center mt-3">
+                        <a href="#" class="text-decoration-none text-primary">View Profile</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Panel (Content) -->
+            <div class="gap-4 col-lg-9">
+                <div class="bg-dark-custom p-4 rounded-lg">
+                    <div class="tab-content" id="settings-tabContent">
+                        <!-- Account Tab setting  -->
+                        <div class="tab-pane fade show active" id="account" role="tabpanel">
+                            <!-- Main Content -->
+                            <div class="col-9 p-4">
+                                <h2 class="fw-bold mb-3">Account Settings</h2>
+                                <p class="text-secondary mb-4">He moonlights difficult engrossed it, sportsmen.
+                                    Interested has all Devonshire
+                                    difficulty gay assistance joy. Unaffected at ye of compliment alteration to.</p>
+                                <form>
+                                    <div class="row g-3 mb-3">
+                                        <div class="col-md-4">
+                                            <label class="form-label text-secondary">First name</label>
+                                            <input type="text" class="form-control bg-dark text-white border-secondary"
+                                                value="Sam">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label text-secondary">Last name</label>
+                                            <input type="text" class="form-control bg-dark text-white border-secondary"
+                                                value="Lanson">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label text-secondary">Additional name</label>
+                                            <input type="text" class="form-control bg-dark text-white border-secondary">
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label text-secondary">User name</label>
+                                            <input type="text" class="form-control bg-dark text-white border-secondary"
+                                                value="@samlanson">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label text-secondary">Birthday</label>
+                                            <input type="text" class="form-control bg-dark text-white border-secondary"
+                                                value="12/12/1990">
+                                        </div>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                        <label class="form-check-label text-secondary">Allow anyone to add you to their
+                                            team</label>
+                                    </div>
+                                    <div class="row g-3 mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label text-secondary">Phone number</label>
+                                            <input type="text" class="form-control bg-dark text-white border-secondary"
+                                                value="(678) 324-1251">
+                                            <button class="btn btn-link text-decoration-none text-primary p-0 mt-2">Add
+                                                new phone number</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label text-secondary">Email</label>
+                                            <input type="text" class="form-control bg-dark text-white border-secondary"
+                                                value="sam@abc.com">
+                                            <button class="btn btn-link text-decoration-none text-primary p-0 mt-2">Add
+                                                new email address</button>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label text-secondary">Overview</label>
+                                        <textarea class="form-control bg-dark text-white border-secondary"
+                                            rows="4">Interested has all Devonshire difficulty gay assistance joy. Handsome met debating sir dwelling age material. As style lived he worse dried. Offered related so visitors we private removed. Moderate do subjects to distance.</textarea>
+                                        <p class="text-secondary small mt-1">Character limit: 300</p>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Notification Tab  setting -->
+                        <div class="tab-pane fade" id="notification" role="tabpanel">
+                            <!-- Main Content -->
+                            <div class="col-12 col-md-8 col-lg-9">
+                                <div class="bg-dark-custom p-4 rounded">
+                                    <h1 class="text-white mb-4">Notification</h1>
+                                    <p class="mb-5">Tried law yet style child. The bore of true of no be deal.
+                                        Frequently sufficient to be unaffected. The furnished she concluded depending
+                                        procuring concealed.</p>
+                                    <div class="mb-4">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <div>
+                                                <h2 class="fs-5">Likes and Comments</h2>
+                                                <p class="small text-custom-muted">Joy say painful removed reached end.
+                                                </p>
+                                            </div>
+                                            <input type="checkbox" class="form-check-input" checked>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <div>
+                                                <h2 class="fs-5">Reply to My Comments</h2>
+                                                <p class="small text-custom-muted">Ask a quick six seven offer see
+                                                    among.</p>
+                                            </div>
+                                            <input type="checkbox" class="form-check-input" checked>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <div>
+                                                <h2 class="fs-5">Subscriptions</h2>
+                                                <p class="small text-custom-muted">Preference any astonished unreserved
+                                                    Mrs.</p>
+                                            </div>
+                                            <input type="checkbox" class="form-check-input">
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <div>
+                                                <h2 class="fs-5">Birthdays</h2>
+                                                <p class="small text-custom-muted">Contented he gentleman agreeable do
+                                                    be</p>
+                                            </div>
+                                            <input type="checkbox" class="form-check-input">
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <div>
+                                                <h2 class="fs-5">Events</h2>
+                                                <p class="small text-custom-muted">Fulfilled direction use continually.
+                                                </p>
+                                            </div>
+                                            <input type="checkbox" class="form-check-input" checked>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <div>
+                                                <h2 class="fs-5">Email Notifications</h2>
+                                                <p class="small text-custom-muted">As hastened oh produced prospect.</p>
+                                            </div>
+                                            <select class="form-select bg-dark-custom text-light border-secondary"
+                                                aria-label="Email frequency">
+                                                <option>Daily</option>
+                                                <option>Weekly</option>
+                                                <option>Monthly</option>
+                                            </select>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <div>
+                                                <h2 class="fs-5">Push Notifications</h2>
+                                                <p class="small text-custom-muted">Rendered six say his striking
+                                                    confined.</p>
+                                            </div>
+                                            <input type="checkbox" class="form-check-input" checked>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <div>
+                                                <h2 class="fs-5">Weekly Account Summary <span class="text-primary">Pro
+                                                        Only</span></h2>
+                                                <p class="small text-custom-muted">Rendered six say his striking
+                                                    confined.</p>
+                                            </div>
+                                            <input type="checkbox" class="form-check-input">
+                                        </div>
+                                    </div>
+                                    <div class="mt-5">
+                                        <button class="btn btn-primary">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Privacy and Safety Tab  setting -->
+                        <div class="tab-pane fade" id="privacy" role="tabpanel">
+                            <div class="container">
+                                <h4>Privacy and safety</h4>
+                                <p>See information about your account, download an archive of your data, or learn about
+                                    your account deactivation options</p>
+                                <ul class="list-group ">
+                                    <li class="list-group-item">
+                                        <div>
+                                            <strong>Use two-factor authentication</strong>
+                                            <p class="mb-0">Unaffected occasional thoroughly. Adieus it no wonders
+                                                spirit houses.</p>
+                                        </div>
+                                        <button class="btn btn-change"><i
+                                                class="fa-regular fa-pen-to-square"></i>Change</button>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div>
+                                            <strong>Login activity</strong>
+                                            <p class="mb-0">Select the language you use on social</p>
+                                        </div>
+                                        <button class="btn btn-change"> <i class="fa-solid fa-eye"></i>View</button>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div>
+                                            <strong>Manage your data and activity</strong>
+                                            <p class="mb-0">Select a language for translation</p>
+                                        </div>
+                                        <button class="btn btn-change"><i
+                                                class="fa-regular fa-pen-to-square"></i>Change</button>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div>
+                                            <strong>Search history</strong>
+                                            <p class="mb-0">Choose to autoplay videos on social</p>
+                                        </div>
+                                        <button class="btn btn-change"><i
+                                                class="fa-regular fa-pen-to-square"></i>Change</button>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div>
+                                            <strong>Permitted services</strong>
+                                            <p class="mb-0">Choose if this feature appears on your profile</p>
+                                        </div>
+                                        <button class="btn btn-change"><i
+                                                class="fa-regular fa-pen-to-square"></i>Change</button>
+                                    </li>
+                                </ul>
+                                <div class="mt-3 text-end">
+                                    <button class="btn btn-save">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Communications Tab -->
+                        <div class="tab-pane fade" id="communications" role="tabpanel">
+                            <h2 class="text-white">Communications</h2>
+                            <!-- Main Content COMMUNICATIONS SETTING-->
+                            <div class="w-3/4 p-6">
+                                <h1 class="text-xl font-semibold mb-4">Who can connect with you?</h1>
+                                <p class="text-gray-400 mb-4">He moonlights difficult engrossed it, sportsmen.
+                                    Interested has all Devonshire
+                                    difficulty gay assistance joy. Unaffected at ye of compliment alteration to.</p>
+                                <div class="bg-gray-800 p-4 rounded-lg">
+                                    <div class="mb-4">
+                                        <h2 class="text-lg font-semibold mb-2">Connection request</h2>
+                                        <div class="space-y-2">
+                                            <label class="flex items-center space-x-2">
+                                                <input type="radio" name="connection_request"
+                                                    class="form-radio text-blue-500">
+                                                <span>Everyone on social (recommended)</span>
+                                            </label>
+                                            <label class="flex items-center space-x-2">
+                                                <input type="radio" name="connection_request"
+                                                    class="form-radio text-blue-500" checked>
+                                                <span>Only people who know your email address</span>
+                                            </label>
+                                            <label class="flex items-center space-x-2">
+                                                <input type="radio" name="connection_request"
+                                                    class="form-radio text-blue-500">
+                                                <span>Only people who appear in your mutual connection list</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <h2 class="text-lg font-semibold mb-2">Who can message you</h2>
+                                        <div class="space-y-2">
+                                            <label class="flex items-center space-x-2">
+                                                <input type="radio" name="message_request"
+                                                    class="form-radio text-blue-500">
+                                                <span>Everyone</span>
+                                            </label>
+                                            <label class="flex items-center space-x-2">
+                                                <input type="radio" name="message_request"
+                                                    class="form-radio text-blue-500" checked>
+                                                <span>Only people you follow</span>
+                                            </label>
+                                            <label class="flex items-center space-x-2">
+                                                <input type="radio" name="message_request"
+                                                    class="form-radio text-blue-500">
+                                                <span>Only people in your contacts</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <h2 class="text-lg font-semibold mb-2">How people can find you</h2>
+                                        <div class="space-y-2">
+                                            <label class="flex items-center space-x-2">
+                                                <input type="radio" name="find_request"
+                                                    class="form-radio text-blue-500">
+                                                <span>By email</span>
+                                            </label>
+                                            <label class="flex items-center space-x-2">
+                                                <input type="radio" name="find_request" class="form-radio text-blue-500"
+                                                    checked>
+                                                <span>By phone number</span>
+                                            </label>
+                                            <label class="flex items-center space-x-2">
+                                                <input type="radio" name="find_request"
+                                                    class="form-radio text-blue-500">
+                                                <span>By username</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <button class="bg-blue-500 text-white px-4 py-2 rounded">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Messaging privacy Tab setting  -->
+                        <div class="tab-pane fade" id="messaging" role="tabpanel">
+                            <div class="container">
+                                <h4>Messaging privacy settings</h4>
+                                <p>As young ye hopes no he place means. Partiality diminution gay yet entreaties
+                                    admiration. In mention perhaps attempt pointed suppose. Unknown ye chamber of
+                                    warrant of Norland arrived.</p>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="messageRequestNotifications">Enable message
+                                        request notifications</label>
+                                    <input class="form-check-input" type="checkbox" id="messageRequestNotifications"
+                                        checked>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="invitationsFromNetwork">Invitations from your
+                                        network</label>
+                                    <input class="form-check-input" type="checkbox" id="invitationsFromNetwork" checked>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="allowConnections">Allow connections to add you
+                                        on group</label>
+                                    <input class="form-check-input" type="checkbox" id="allowConnections" checked>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="replyToComments">Reply to comments</label>
+                                    <input class="form-check-input" type="checkbox" id="replyToComments" checked>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="messagesFromActivity">Messages from activity on
+                                        my page or channel</label>
+                                    <input class="form-check-input" type="checkbox" id="messagesFromActivity" checked>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="personaliseTips">Personalise tips for my
+                                        page</label>
+                                    <input class="form-check-input" type="checkbox" id="personaliseTips" checked>
+                                </div>
+                                <button type="button" class="btn btn-primary mt-3">Save changes</button>
+                            </div>
+                        </div>
+
+                        <!-- Close Account Tab -->
+                        <div class="tab-pane fade" id="close-account" role="tabpanel">
+                            <h2 class="text-white">Close Account</h2>
+                            <p>If you delete your account, you will lose all your data.</p>
+                            <div class="form-check mb-3">
+                                <input type="checkbox" class="form-check-input" id="deleteAccountCheck">
+                                <label class="form-check-label" for="deleteAccountCheck">Yes, I'd like to delete my
+                                    account</label>
+                            </div>
+                            <div class="d-flex gap-3">
+                                <button class="btn btn-success">Keep my account</button>
+                                <button class="btn btn-danger">Delete my account</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center mt-5 text-secondary">
+        <div class="mb-2">
+            <a href="#" class="text-decoration-none text-secondary mx-2">About</a>
+            <a href="#" class="text-decoration-none text-secondary mx-2">Settings</a>
+            <a href="#" class="text-decoration-none text-secondary mx-2">Support & Help</a>
+            <a href="#" class="text-decoration-none text-secondary mx-2">Privacy & terms</a>
+        </div>
+        <p>&copy; 2024</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const closeSidebar = document.getElementById('closeSidebar');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+            content.classList.toggle('expand');
+        });
+
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.remove('show');
+            content.classList.remove('expand');
+        });
+    </script>
+</body>
+
+</html>

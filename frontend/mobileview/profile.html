@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Tab Navigation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="border-top">
+        <!-- Navigation Links -->
+        <ul class="nav nav-tabs justify-content-around py-2" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active text-primary" id="feed-tab" data-bs-toggle="tab" href="#feed" role="tab"
+                    aria-controls="feed" aria-selected="true">Feed</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link text-muted" id="about-tab" data-bs-toggle="tab" href="#about" role="tab"
+                    aria-controls="about" aria-selected="false">About</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link text-muted" id="friends-tab" data-bs-toggle="tab" href="#friends" role="tab"
+                    aria-controls="friends" aria-selected="false">Friends <span
+                        class="badge bg-success text-white ms-1">300</span></a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link text-muted" id="images-tab" data-bs-toggle="tab" href="#images" role="tab"
+                    aria-controls="images" aria-selected="false">Images</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link text-muted" id="videos-tab" data-bs-toggle="tab" href="#videos" role="tab"
+                    aria-controls="videos" aria-selected="false">Videos</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link text-muted" id="activity-tab" data-bs-toggle="tab" href="#activity" role="tab"
+                    aria-controls="activity" aria-selected="false">Activity</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Tab Content Sections -->
+    <div class="tab-content p-4" id="myTabContent">
+        <div class="tab-pane fade show active" id="feed" role="tabpanel" aria-labelledby="feed-tab">
+            <h5>Feed Section</h5>
+            <p>This is the Feed section content.</p>
+        </div>
+        <div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
+            <h5>About Section</h5>
+            <p>This is the About section content.</p>
+        </div>
+        <div class="tab-pane fade" id="friends" role="tabpanel" aria-labelledby="friends-tab">
+            <h5>Friends Section</h5>
+            <p>This is the Friends section content with the number of friends displayed.</p>
+        </div>
+        <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+            <h5>Images Section</h5>
+            <p>This is the Images section content.</p>
+        </div>
+        <div class="tab-pane fade" id="videos" role="tabpanel" aria-labelledby="videos-tab">
+            <h5>Videos Section</h5>
+            <p>This is the Videos section content.</p>
+        </div>
+        <div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="activity-tab">
+            <h5>Activity Section</h5>
+            <p>This is the Activity section content.</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

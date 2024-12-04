@@ -1,0 +1,386 @@
+<% layout("/layouts/boilerplate") %>
+  <style>
+    .scrollable {
+      height: 100vh;
+      /* Full height of the container */
+      overflow-y: auto;
+      /* Enable vertical scrolling */
+      border: none;
+      /* Optional: Add border for visibility */
+      scrollbar-width: none;
+      /* Thin scrollbar */
+      scrollbar-color: #888 transparent;
+      /* Color of the thumb and track */
+    }
+
+    .post-card {
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .post-card img,
+    .post-card video {
+      width: 100%;
+      /* max-height: 400px; */
+      height: auto;
+      object-fit: cover;
+    }
+
+    .post-card .card-body {
+      padding: 20px;
+    }
+
+    .post-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .post-header h6 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .post-header small {
+      color: #999;
+    }
+
+    .post-actions {
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+      color: #6c757d;
+    }
+
+    .post-actions i {
+      margin-right: 5px;
+    }
+
+    .post-actions a:hover {
+      color: #000;
+    }
+
+    .comment-box {
+      margin-top: 15px;
+    }
+
+    .comment-box input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ced4da;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .post-card {
+        margin-bottom: 15px;
+      }
+    }
+
+    .profile-card {
+      max-width: 20rem;
+      background-color: #1b1b1b;
+      border-radius: 10px;
+    }
+
+    .card-header-img {
+      height: 100px;
+      object-fit: cover;
+    }
+
+    .profile-img {
+      width: 100px;
+      height: 100px;
+      border: 4px solid #1b1b1b;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .icon {
+      width: 20px;
+    }
+
+    .text-gray-400 {
+      color: #9CA3AF !important;
+    }
+
+    .text-blue-500 {
+      color: #3B82F6 !important;
+    }
+
+    .hover-bg-gray-700:hover {
+      background-color: #374151 !important;
+    }
+
+    .bg-gray-800 {
+      background-color: #1F2937 !important;
+    }
+
+    @media (max-width: 991px) {
+
+      /* Mobile size */
+      .dis-none{
+        display: none;
+        /* Hide sidebar on mobile by default */
+      }
+    }
+  </style>
+
+  <body>
+    <div class="container-fluid ">
+      <div class="row">
+        <!-- Left Column: Sidebar -->
+        <div class="col-md-3 dis-none">
+          <div class="m-1 card scrollable">
+            <div class="container d-flex justify-content-center my-5">
+              <div class="card profile-card text-white shadow bg-gray-800">
+                <div class="position-relative">
+                  <img
+                    src="https://storage.googleapis.com/a1aa/image/S1np5DZM3rbCLp8tmcee9kiozGi4C91mecfyYnkPHfZfy546E.jpg"
+                    class="card-header-img w-100" alt="Background image">
+                  <img
+                    src="https://storage.googleapis.com/a1aa/image/SCXdcBGGecweLUlhh2wGjehgJahefSSUu4Nzcpyz4ZYW5ccdC.jpg"
+                    alt="Profile picture of Sam Lanson" class="rounded-circle position-absolute profile-img">
+                </div>
+                <div class="card-body text-center mt-5 text-white bg-gray-800">
+                  <h5 class="card-title font-weight-bold text-white">Sam Lanson</h5>
+                  <p class=" text-white">Web Developer at Stackbros</p>
+                  <p class=" text-white" style="font-size: 0.9rem;">
+                    I'd love to change the world, but they won't give me the source code.
+                  </p>
+                </div>
+                <div class="d-flex justify-content-around text-center  text-gray-400 bg-gray-800">
+                  <div>
+                    <span class="d-block font-weight-bold text-white">256</span>
+                    <small>Post</small>
+                  </div>
+                  <div>
+                    <span class="d-block font-weight-bold text-white">2.5K</span>
+                    <small>Followers</small>
+                  </div>
+                  <div>
+                    <span class="d-block font-weight-bold text-white">365</span>
+                    <small>Following</small>
+                  </div>
+                </div>
+                <ul class="list-group list-group-flush mt-3 text-gray-400 bg-gray-800">
+                  <li class="list-group-item bg-gray-800 hover-bg-gray-700 d-flex align-items-center text-white">
+                    <i class="fas fa-home icon mr-3"></i> Feed
+                  </li>
+                  <li class="list-group-item  bg-gray-800 hover-bg-gray-700  d-flex align-items-center text-white">
+                    <i class="fas fa-user-friends icon mr-3"></i> Your Friends
+                  </li>
+                  <li class="list-group-item  bg-gray-800 hover-bg-gray-700  d-flex align-items-center text-white">
+                    <i class="fa-regular fa-eye mr-2"></i> Profiles Viewer
+                  </li>
+                  <li class="list-group-item  bg-gray-800 hover-bg-gray-700  d-flex align-items-center text-white">
+                    <i class="fa-solid fa-street-view mr-3"></i> Nearby People
+                  </li>
+                  <li class="list-group-item  bg-gray-800 hover-bg-gray-700  d-flex align-items-center text-white">
+                    <i class="fa-brands fa-google-wallet mr-3"></i> Social Wallet Score
+                  </li>
+                  <li class="list-group-item  bg-gray-800 hover-bg-gray-700  d-flex align-items-center text-white">
+                    <i class="fas fa-users icon mr-3"></i> Groups
+                  </li>
+                  <li
+                    class="list-group-item text-blue-500  bg-gray-800 hover-bg-gray-700  d-flex align-items-center text-primary">
+                    <i class="fas fa-bell icon mr-3"></i> Notifications
+                  </li>
+                  <li class="list-group-item  bg-gray-800 hover-bg-gray-700  d-flex align-items-center text-white">
+                    <i class="fas fa-cog icon mr-3"></i> Settings
+                  </li>
+                </ul>
+                <div class="text-center mt-3 mb-3">
+                  <a href="#" class="text-blue-500 text-decoration-none">View Profile</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Middle Column: Posts -->
+        <div class="col-md-6 container">
+          <div class="m-3 card scrollable">
+            <div class="bg-white mt-4 p-4 rounded shadow container">
+              <div class="d-flex align-items-center mb-3">
+                  <img alt="Profile picture"
+                      src="https://storage.googleapis.com/a1aa/image/IIi4N679fwWYB6A6MveDelts447m3hx13SrEWX1I4QXXQDXnA.jpg"
+                      class="rounded-circle" width="40" height="40">
+                  <input type="text" class="form-control border-0 ms-3" placeholder="Share your thoughts...">
+              </div>
+              <div class="d-flex justify-content-between mt-3">
+                  <div class="d-flex gap-2">
+                      <a href="/new" class="btn btn-light d-flex align-items-center">
+                          <i class="fas fa-image text-success me-1"></i>
+                          <span>Photo</span>
+                      </a>
+                      <a href="/upload-video" class="btn btn-light d-flex align-items-center">
+                          <i class="fas fa-video text-primary me-1"></i>
+                          <span>Video</span>
+                      </a>
+                      <a href="/create-event" class="btn btn-light d-flex align-items-center">
+                          <i class="fas fa-calendar-alt text-danger me-1"></i>
+                          <span>Event</span>
+                      </a>
+                  </div>
+              </div>
+           </div>   
+            <div class="m-3 card-header">
+              <h5 class="m-3 card-title">Posts</h5>
+            </div>
+            <div class="container mt-5">
+              <!-- Post 0 -->
+              <% for (let post of allPost) { %>
+                <div class="post-card">
+                  <div class="card-body">
+                    <div class="post-header">
+                      <h6 class="text-left">
+                        <%= post.author %>
+                      </h6>
+                      <small class="text-left">
+                        <%= post.createdAt %>
+                      </small>
+                    </div>
+                    <img src="<%= post.image %>" alt="Post Image" />
+                    <p class="mt-3">
+                      <%= post.content %>
+                    </p>
+                    <div class="border-top">
+                      <div class="d-flex border-top">
+                        <button class="btn btn-light flex-fill d-flex align-items-center justify-content-center py-2">
+                          <i class="far fa-thumbs-up mr-2"></i>
+                          <%= post.likes %> Like
+                        </button>
+                        <button class="btn btn-light flex-fill d-flex align-items-center justify-content-center py-2">
+                          <i class="far fa-comment-alt mr-2"></i> Comment
+                        </button>
+                        <button class="btn btn-light flex-fill d-flex align-items-center justify-content-center py-2">
+                          <i class="far fa-share-square mr-2"></i> Send
+                        </button>
+                        <span><i class="fa-solid fa-eye"></i> 450 Views</span>
+                      </div>
+                    </div>
+                    <div class="comment-box mt-3">
+                      <input type="text" placeholder="Add a comment..." />
+                    </div>
+                  </div>
+                </div>
+                <% } %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Events & Birthdays -->
+        <div class="col-md-3 scrollable dis-none">
+          <div class="m-3 card">
+            <div class="m-3">
+              <h5 class="card-title">Who to Follow</h5>
+            </div>
+            <div class="m-3 card-body">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <div class="follow-item">
+                    <img alt="Portrait of Samuel Bishop" height="40"
+                      src="https://storage.googleapis.com/a1aa/image/QdLGkS8x41olBd7dht9i5VrAFfMbo5v9EwEBWtBoUfBOb3rTA.jpg"
+                      width="40" />
+                    <div class="info">
+                      <div class="name">
+                        Samuel Bishop
+                      </div>
+                      <div class="role">
+                        News anchor
+                      </div>
+                    </div>
+                    <div class="action active">
+                      <i class="fas fa-user">
+                      </i>
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="follow-item">
+                    <img alt="Portrait of Dennis Barrett" height="40"
+                      src="https://storage.googleapis.com/a1aa/image/snu0AoISrMJdFFUTbOoiL5peRM0u4lpQ1TOTH9kStDDot71JA.jpg"
+                      width="40" />
+                    <div class="info">
+                      <div class="name">
+                        Dennis Barrett
+                      </div>
+                      <div class="role">
+                        Web Developer at ...
+                      </div>
+                    </div>
+                    <div class="action">
+                      <i class="fas fa-plus">
+                      </i>
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="follow-item">
+                    <img alt="Portrait of Judy Nguyen" height="40"
+                      src="https://storage.googleapis.com/a1aa/image/3hovwiiEuJavKdjHTJyPqne7uWAsiAD6Q6y21OhQKWeMb3rTA.jpg"
+                      width="40" />
+                    <div class="info">
+                      <div class="name">
+                        Judy Nguyen
+                      </div>
+                      <div class="role">
+                        News anchor
+                      </div>
+                    </div>
+                    <div class="action">
+                      <i class="fas fa-plus">
+                      </i>
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="follow-item">
+                    <img alt="Portrait of Lori Ferguson" height="40"
+                      src="https://storage.googleapis.com/a1aa/image/18hB8FtTSqo0AlztvH1VVRyjahLhe5cE9Afm1qqpT1jPb3rTA.jpg"
+                      width="40" />
+                    <div class="info">
+                      <div class="name">
+                        Lori Ferguson
+                      </div>
+                      <div class="role">
+                        Web Developer
+                      </div>
+                    </div>
+                    <div class="action">
+                      <i class="fas fa-plus">
+                      </i>
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="follow-item">
+                    <img alt="Portrait of Frances Guerrero" height="40"
+                      src="https://storage.googleapis.com/a1aa/image/6Di5ZWQdz4LYG1hYq63HGZE3dWbncVCLX7zoKUC94Pq0296E.jpg"
+                      width="40" />
+                    <div class="info">
+                      <div class="name">
+                        Frances Guerrero
+                      </div>
+                      <div class="role">
+                        News anchor
+                      </div>
+                    </div>
+                    <div class="action">
+                      <i class="fas fa-plus">
+                      </i>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>

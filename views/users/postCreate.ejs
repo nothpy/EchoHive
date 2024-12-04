@@ -1,0 +1,116 @@
+<% layout("/layouts/boilerplate") %>
+    <style>
+        .container {
+            max-width: 600px;
+            background: #fff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        h1 {
+            color: #343a40;
+            font-weight: bold;
+        }
+
+        .form-label {
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #007bff, #0056b3);
+            border: none;
+            transition: background 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #0056b3, #007bff);
+        }
+
+        #imagePreview {
+            display: none;
+            max-width: 100%;
+            margin-top: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Create a Post</h1>
+
+        <!-- Post Form -->
+        <form id="postForm">
+            <div class="mb-3">
+                <label for="postTitle" class="form-label">Title</label>
+                <input type="text" class="form-control" id="postTitle" placeholder="Enter your post title" required>
+            </div>
+            <div class="mb-3">
+                <label for="postContent" class="form-label">Content</label>
+                <textarea class="form-control" id="postContent" rows="5" placeholder="Write your post content..."
+                    required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="postImage" class="form-label">Upload Image</label>
+                <input type="file" class="form-control" id="postImage" accept="image/*">
+                <img id="imagePreview" alt="Image Preview">
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Post</button>
+        </form>
+    </div>
+
+
+    <script>
+        // Image Preview Functionality
+        document.getElementById('postImage').addEventListener('change', function (event) {
+            const imagePreview = document.getElementById('imagePreview');
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.style.display = 'none';
+            }
+        });
+
+        // Handle Post Form Submission
+        document.getElementById('postForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').value;
+            const image = document.getElementById('imagePreview').src;
+
+            const postHTML = `
+        <div class="col-md-6">
+          <div class="card post-card">
+            ${image ? `<img src="${image}" class="card-img-top" alt="Post Image">` : ''}
+            <div class="card-body">
+              <h5 class="card-title">${title}</h5>
+              <p class="card-text">${content}</p>
+            </div>
+          </div>
+        </div>
+      `;
+
+            document.getElementById('postsContainer').innerHTML = postHTML + document.getElementById('postsContainer').innerHTML;
+
+            // Reset form and preview
+            document.getElementById('postForm').reset();
+            document.getElementById('imagePreview').style.display = 'none';
+        });
+    </script>

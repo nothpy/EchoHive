@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Media - Post Upload with Preview</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+</head>
+<body>
+
+<div class="container my-5">
+  <h1 class="text-center mb-4">Create a Post with Image Preview</h1>
+
+  <!-- Post Form -->
+  <div class="post-form">
+    <form id="postForm">
+      <div class="mb-3">
+        <label for="postTitle" class="form-label">Title</label>
+        <input type="text" class="form-control" id="postTitle" placeholder="Enter your post title" required>
+      </div>
+      <div class="mb-3">
+        <label for="postContent" class="form-label">Content</label>
+        <textarea class="form-control" id="postContent" rows="5" placeholder="Write your post content..." required></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="postImage" class="form-label">Upload Image</label>
+        <input type="file" class="form-control" id="postImage" accept="image/*">
+        <img id="imagePreview" class="image-preview" alt="Image Preview">
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Post</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Image Preview Functionality
+  document.getElementById('postImage').addEventListener('change', function(event) {
+    const imagePreview = document.getElementById('imagePreview');
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        imagePreview.src = e.target.result;
+        imagePreview.style.display = 'block';
+      }
+      reader.readAsDataURL(file);
+    } else {
+      imagePreview.style.display = 'none';
+    }
+  });
+
+  // Handle Post Form Submission
+  document.getElementById('postForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const title = document.getElementById('postTitle').value;
+    const content = document.getElementById('postContent').value;
+    const image = document.getElementById('imagePreview').src;
+
+    const postHTML = `
+      <div class="col-md-6">
+        <div class="card post-card">
+          ${image ? `<img src="${image}" class="card-img-top" alt="Post Image">` : ''}
+          <div class="card-body">
+            <h5 class="card-title">${title}</h5>
+            <p class="card-text">${content}</p>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('postsContainer').innerHTML = postHTML + document.getElementById('postsContainer').innerHTML;
+
+    // Reset form and preview
+    document.getElementById('postForm').reset();
+    document.getElementById('imagePreview').style.display = 'none';
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
